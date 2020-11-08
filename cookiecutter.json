@@ -1,0 +1,8 @@
+{
+  "name": "Name",
+  "email": "name@example.com",
+  "project_name": "A Python Project",
+  "project_slug": "my-python-project",
+  "version": "0.1.0",
+  "open_source_license": ["MIT license", "Not open source"]
+}
