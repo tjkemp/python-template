@@ -1,8 +1,6 @@
 {
-  "name": "Name",
-  "email": "name@example.com",
-  "project_name": "A Python Project",
+  "username": "username",
+  "project_name": "My Python Project",
   "project_slug": "my-python-project",
-  "version": "0.1.0",
-  "open_source_license": ["MIT license", "Not open source"]
+  "open_source_license": ["MIT license", "BSD license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
 }
