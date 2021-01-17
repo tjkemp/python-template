@@ -1,24 +1,28 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function process_status () {
-  if [ $? -eq 0 ]; then
-    echo " OK"
-  else
+  if [ $? -ne 0 ]; then
     echo " FAILED"
-    exit
+    exit 1
+  else
+    echo " OK"
   fi
 };
 
-echo Creating a virtual environment...
+echo Creating a virtual environment \"venv\"...
 python -m venv venv || { process_status; }
 
-echo Updating pip...
-venv/bin/pip install --upgrade pip setuptools wheel || { process_status; }
+echo Updating pip and friends...
+venv/bin/pip install -q --upgrade pip setuptools wheel || { process_status; }
 
-echo Creating requirements.txt...
-pip-compile requirements/requirements.in || { process_status; }
+if [ -x "$(command -v pip-compile)" ]; then
+  echo Updating requirements.txt with pip-compile...
+  pip-compile -q requirements/requirements.in || { process_status; }
+else
+  echo WARNING - Install pip-tools to keep your requirements.txt up to date
+fi
 
 echo Installing dependencies...
-echo pip install -r requirements/requirements.txt || { process_status; }
+venv/bin/pip install -q -r requirements/requirements.txt || { process_status; }
 
 echo Virtual environment created. Type \"source venv/bin/activate\" to activate it.
