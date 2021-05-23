@@ -25,4 +25,7 @@ fi
 echo Installing dependencies...
 venv/bin/pip install -q -r requirements/requirements.txt || { process_status; }
 
-echo Virtual environment created. Type \"source venv/bin/activate\" to activate it.
+echo Creating a VS Code default settings file...
+cp .vscode/settings-default.json .vscode/settings.json
+
+echo Virtual environment created. Type \"source venv/bin/activate\" to activate it. Type \"code .\" to start coding.
