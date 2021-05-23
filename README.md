@@ -1,19 +1,78 @@
 # Yet Another Python Style Guide
 
-This guide is a somewhat opinionated compilation of Python coding style suggestions.
+This repository is a personal and opinionated compilation of Python coding style suggestions. The repo also doubles as a [cookiecutter](https://github.com/cookiecutter/cookiecutter) template for new Python projects.
 
-The main suggestion is to use opinionated automation (a linter and a formatter) to take care of the details as much as possible. This style guide is for the rest.
+## Usage of suggestions
 
-The point of having style guidelines is to have a common vocabulary of coding so people can concentrate on what you're saying rather than on how you're saying it.
+The opinion of the author is that we should use opinionated automation (a linter and an auto formatter) to take care of the details as much as possible. Style guide is for the rest.
 
+The point of having style guidelines (and automation) is to have a common vocabulary of coding so people can concentrate on what you're saying rather than on how you're saying it.
+
+## Usage of the cookiecutter tempalate
+
+The cookiecutter template can be used as such with only `cookiecutter` Python package installed. To have everything work smoothly and to be able to use `init-env.sh` to initialize the  project, the following prerequisities should be met:
+ - pyenv (to install Python versions)
+ - pipx (used for installing the dependencies below)
+ - cookiecutter (installed with pipx)
+ - pip-tools (installed with pipx)
+ - pre-commit (installed with pipx)
+
+To create a new project directory, run cookiecutter with the url of the repo as a parameter.
+
+```bash
+$ cookiecutter https://github.com/tjkemp/python-style-guide
+
+username [username]: tjkemp
+project_name [My Python Project]: My cool project
+project_slug [my-python-project]: my-cool-project
+Select open_source_license:
+1 - MIT license
+2 - BSD license
+3 - Apache Software License 2.0
+4 - GNU General Public License v3
+5 - Not open source
+Choose from 1, 2, 3, 4, 5 [1]: 1
+```
+
+This would create directory *my-cool-project* into the current directory with nice default configurations.
+
+Next enter the project directory and run `init-env.sh` to initialize new Python environment and package management.
+
+```bash
+$ cd my-cool-project
+$ ./init-env.sh 
+
+Creating a virtual environment "venv"...
+Updating pip and friends...
+Updating requirements.txt with pip-compile...
+Installing dependencies...
+Virtual environment created. Type "source venv/bin/activate" to activate it.
+```
+
+Everything should be set up, now initialize a repo and start coding!
+
+```bash
+$ git init
+$ code .
+```
 
 ### Tooling
 
-For formatting and linting, use
+For Python installation, virtual environment creation, and package management use
 
-- [*black*](https://black.readthedocs.io/en/stable/index.html) for formatting (enable Format Code on Save on your IDE), and
+- [*pyenv*](https://github.com/pyenv/pyenv) for managing installations of Python versions, and
 
-- [*flake8*](https://flake8.pycqa.org/en/latest/) for linting.
+- [*venv*](https://docs.python.org/3.8/tutorial/venv.html#creating-virtual-environments) for creating environments (because it’s simple, universal, and Pipenv has some long-standing issues, though Poetry could be an option).
+
+- [*pip-tools*](https://github.com/jazzband/pip-tools) commands `pip-compile` and `pip-sync` to keep your packages fresh and your builds predictable.
+
+For code quality, use
+
+- [*black*](https://black.readthedocs.io/en/stable/index.html) for formatting (enable Format Code on Save on your VS Code), and
+
+- [*flake8*](https://flake8.pycqa.org/en/latest/) for linting,
+
+- [*Pylance*](https://flake8.pycqa.org/en/latest/) for IntelliSense, syntax highlighting, and type checking.
 
 For testing, use
 
@@ -21,24 +80,24 @@ For testing, use
 
 - [*coverage*](https://coverage.readthedocs.io/) for measuring test coverage.
 
-For Python installation and managing virtual environments, use
+For security, as easy first steps at least, use
 
-- [*pyenv*](https://github.com/pyenv/pyenv) for managing installations of Python versions,
+- [*safety*](https://pypi.org/project/safety/) for checking your installed dependencies for known security vulnerabilities, and
 
-- [*venv*](https://docs.python.org/3.8/tutorial/venv.html#creating-virtual-environments) for creating environments (because it’s simple, universal, and Pipenv hangs, or at least used to, with large data science packages).
+- [*bandit*](https://pypi.org/project/bandit/) to find common security issues.
 
 
 ## Style recommendations
 
 ### Code lay-out
 
-- Use *black*'s default maximum line length of 88 characters. Docstrings and comments should still be wrapped at 72 chars as recommended by PEP8. (According to PEP8, maximum line length can be configured to be between 79 and 99 chars.)
+- Use *black*'s default maximum line length of 88 characters. (According to PEP8, maximum line length can be configured to be between 79 and 99 chars.) Docstrings and comments should still be wrapped at 72 chars as recommended by PEP8.
 
 - If an expression does not fit on one line, surround it with parentheses and add line breaks and indentation to make it easier to read. Do this rather than using the \ line continuation char.
 
 - Line breaks should be before a binary operator:
 
-:white_check_mark:
+:heavy_check_mark:
 ```python
 income = (
   gross_wages
@@ -51,20 +110,20 @@ income = (
 
 - Prefer hanging indent over aligning with opening parenthesis for better readability.
 
-:x:
-```python
-def my_function(var_one,
-                var_two,
-                var_three):
-```
-
-:white_check_mark:
+:heavy_check_mark:
 ```python
 def my_function(
         var_one,
         var_two,
         var_three,
     ):
+```
+
+:x:
+```python
+def my_function(var_one,
+                var_two,
+                var_three):
 ```
 
 - Use blank lines in functions, but sparingly, to indicate logical sections.
@@ -77,7 +136,7 @@ def my_function(
   2. related third party imports
   3. local application/library specific imports
 
-There should be a blank line between each group of imports. Each group should be sorted in alphabetical order, ignoring case, according to full package path.
+- There should be a blank line between each group of imports. Each group should be sorted in alphabetical order, ignoring case, according to full package path.
 
 - Prefer absolute imports over relative imports.
 
@@ -104,39 +163,37 @@ There should be a blank line between each group of imports. Each group should be
   - public modules, functions, classes, and methods should have a docstring,
   - non-public methods should have a comment that describes what it does, and
   - docstrings must use triple double quotes (`"""`) instead of triple single quotes (`'''`).
-- If the codebase is a library, the docstring of module or a package should list the classes, exceptions and functions (and any other objects) that are exported, with a one-line summary of each.
+
 - Use Google style docstring notation ([see examples](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)).
 
-Example docstring for a function:
+- Docstrings and comments should still be wrapped at 72 chars as recommended by PEP8.
+
+- If the codebase is a library, the docstring of module or a package should list the classes, exceptions and functions (and any other objects) that are exported, with a one-line summary of each.
+
+An example docstring for a function:
 
 ```python
-def fetch_rows(
-    table: Table,
-    keys: List[str],
-    require_all_keys: bool = False,
-) -> Mapping[str, Tuple[str]]:
-    """Fetches rows from a Table.
+"""Fetches rows from a Table.
 
-    Retrieves rows with given keys from the Table instance.
+Retrieves rows with given keys from the Table instance.
 
-    Args:
-        table: An instance of Table.
-        keys: A sequence of strings representing the key of each table
-            row to fetch.
-        require_all_keys: Optional; If require_all_keys is True only
-            rows with values set for all keys will be returned.
+Args:
+    table: An instance of Table.
+    keys: A sequence of strings representing the key of each table
+        row to fetch.
+    require_all_keys: If True only rows with values set for all keys
+        will be returned.
 
-    Returns:
-        A dict mapping keys to the corresponding table row data.
+Returns:
+    A dict mapping keys to the corresponding table row data.
 
-    Raises:
-        IOError: An error occurred accessing the table.
+Raises:
+    IOError: An error occurred accessing the table.
 
-    """
-    pass
+"""
 ```
 
-Example docstring for a module:
+An example docstring for a module:
 
 ```python
 """A one line summary of the module, terminated by a period.
@@ -157,13 +214,13 @@ examples.
 
 ### Naming conventions
 
-- Use longer than one char variable names, because it improves readability, and discourages complex expressions.
+- Use longer than one char variable names, because it will improve readability, and discourages complex expressions.
 
 - Modules and packages should have short, all-lowercase names, no dashes.
 
   - Underscores can be used in the module name if it improves readability, but the use of underscore in package name should be avoided.
 
-- Use of underscores:
+- Use of underscores in variable names:
 
   - `_single_leading_underscore`: An indicator of an internal method/function or a "protected" variable. Use this if the method/function is not meant to be accessed outside the class/module
 
@@ -178,7 +235,7 @@ examples.
 
 - In Python, it's normal practice to use exceptions for non-error situations to control execution flow. For example, prefer raising an exception instead of returning `None`.
 
-- Use the suffix "Error" instead of "Exception" on your exception names if the exception actually is an error.
+- Use the suffix "Error" on your exception names if the exception is an error. Do not use the suffix "Exception" because it is superfluous.
 
 
 ### Functions
@@ -202,7 +259,7 @@ examples.
 
 ## Sources
 
-The guide does it's best to honor recommendations of PEPs, Zen of Python (especially "explicit is better than implicit", "readability counts", and "there should be one obvious way to do it"), and other sources listed below.
+The guide does its best to honor recommendations of PEPs, Zen of Python (especially "explicit is better than implicit", "readability counts", and "there should be one obvious way to do it"), and sources listed below.
 
 - [PEP8](https://pep8.org/) - awesomely formatted and curated PEP8
 - [Google style guide](https://google.github.io/styleguide/pyguide.html)
