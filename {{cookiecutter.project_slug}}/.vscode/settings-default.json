@@ -10,6 +10,7 @@
     "python.testing.nosetestsEnabled": false,
     "python.testing.unittestEnabled": false,
     "python.linting.banditEnabled": true,
+    "python.sortImports.path": "isort",
     "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
     "files.exclude": {
