@@ -18,7 +18,7 @@ if [ -x "$(command -v pip-compile)" ]; then
   echo -n "Updating requirements.txt with pip-compile... "
   pip-compile -q requirements/requirements.in; process_status $?
 else
-  echo "WARNING - requirements.txt NOT updated - install pip-tools and run pip-comile to keep your requirements.txt up to date"
+  echo "WARNING - requirements.txt NOT updated - install pip-tools and run pip-compile to keep your requirements.txt up to date"
 fi
 
 echo -n "Installing dependencies... "

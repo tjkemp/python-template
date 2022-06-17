@@ -8,7 +8,7 @@ The opinion of the author is that we should use opinionated automation (a linter
 
 The point of having style guidelines (and automation) is to have a common vocabulary of coding so people can concentrate on what you're saying rather than on how you're saying it.
 
-## Usage of the cookiecutter tempalate
+## Usage of the cookiecutter template
 
 The cookiecutter template can be used as such with only `cookiecutter` Python package installed. To have everything work smoothly and to be able to use `init-env.sh` to initialize the  project, the following prerequisities should be met:
  - pyenv (to install Python versions)
