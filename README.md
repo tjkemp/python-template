@@ -28,10 +28,9 @@ project_slug [my-python-project]: my-cool-project
 Select open_source_license:
 1 - MIT license
 2 - BSD license
-3 - Apache Software License 2.0
-4 - GNU General Public License v3
-5 - Not open source
-Choose from 1, 2, 3, 4, 5 [1]: 1
+3 - GNU General Public License v3
+4 - Not open source
+Choose from 1, 2, 3, 4 [1]: 1
 ```
 
 This would create directory *my-cool-project* into the current directory with nice default configurations.
@@ -48,7 +47,6 @@ Updating requirements.txt with pip-compile...
 Installing dependencies...
 Initializing git repository...
 Installing pre-commit hooks...
-Creating a VS Code default settings file...
 
 Virtual environment created succesfully.
 

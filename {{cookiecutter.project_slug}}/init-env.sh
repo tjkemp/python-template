@@ -46,9 +46,6 @@ else
   echo INFO - Install \'pre-commit\' to have tests run automatically on commit
 fi
 
-echo -n Creating a VS Code default settings file...
-cp .vscode/settings-default.json .vscode/settings.json ; { process_status; }
-
 echo
 echo Virtual environment created succesfully.
 echo
