@@ -12,6 +12,7 @@
     "python.sortImports.path": "isort",
     "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
+    "files.insertFinalNewline": true,
     "files.exclude": {
         "**/*.pyc": {
             "when": "$(basename).py"
