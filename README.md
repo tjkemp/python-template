@@ -40,21 +40,23 @@ Next enter the project directory and run `init-env.sh` to initialize new Python 
 
 ```bash
 $ cd my-cool-project
-$ ./init-env.sh 
+$ ./init-env.sh
 
 Creating a virtual environment "venv"...
 Updating pip and friends...
 Updating requirements.txt with pip-compile...
 Installing dependencies...
-Virtual environment created. Type "source venv/bin/activate" to activate it.
+Initializing git repository...
+Installing pre-commit hooks...
+Creating a VS Code default settings file...
+
+Virtual environment created succesfully.
+
+Type "source venv/bin/activate" to activate the environment.
+Type "code ." to start coding.
 ```
 
 Everything should be set up, now initialize a repo and start coding!
-
-```bash
-$ git init
-$ code .
-```
 
 ### Tooling
 
