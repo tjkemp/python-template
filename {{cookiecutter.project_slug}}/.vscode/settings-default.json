@@ -2,10 +2,10 @@
     "python.languageServer": "Pylance",
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
-    "python.linting.banditEnabled": true,
     "python.formatting.provider": "black",
     "editor.formatOnSave": true,
     "python.testing.pytestEnabled": true,
+    "python.linting.banditEnabled": true,
     "python.sortImports.path": "isort",
     "python.analysis.typeCheckingMode": "basic",
     "files.insertFinalNewline": true,
@@ -15,6 +15,8 @@
         },
         "**/__pycache__": true,
         "**/.*_cache": true,
-        "venv": true
+        "venv": true,
+        "*.egg-info": true,
+        ".coverage": true
     }
 }
