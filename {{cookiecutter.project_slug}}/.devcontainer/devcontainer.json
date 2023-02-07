@@ -2,19 +2,26 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
     "name": "Dev container",
-    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-    "image": "ubuntu:jammy",
-    // Features to add to the dev container. More info: https://containers.dev/features.
-    // Some particularly nice ones are:
-    // "ghcr.io/devcontainers/features/python": {},
-    // "ghcr.io/devcontainers-contrib/features/pipx-package": {}
-    // "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
-    // "ghcr.io/dhoeric/features/act": {},
-    "features": {},
-    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "IMAGE": "python",
+            "TAG": "3.11-slim-bullseye",
+            "USER": "${localEnv:USER}"
+        }
+    },
+    "initializeCommand": "touch .env",
+    "runArgs": [
+        "--env-file",
+        "${localWorkspaceFolder}/.env"
+    ],
+    // Features to add to the dev container. More info: https://containers.dev/features
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers-contrib/features/pipx-package:1": {},
+        "ghcr.io/guiyomh/features/just:0": {}
+    },
     // "forwardPorts": [],
-    // Configure tool-specific properties.
-    // "customizations": {},
     "customizations": {
         "vscode": {
             "extensions": [
@@ -24,10 +31,9 @@
             ]
         }
     },
-    // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "pip install --user -r requirements/requirements.txt"
-    //"remoteUser": "${localEnv:USER}",
-    //"remoteEnv": {
-    //    "PATH": "${containerEnv:PATH}:/home/${localEnv:USER}/.local/bin"
-    //}
+    "postCreateCommand": "pip install --upgrade pip && pip install --user -r requirements/requirements.txt",
+    "remoteUser": "${localEnv:USER}",
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/home/${localEnv:USER}/.local/bin"
+    }
 }
