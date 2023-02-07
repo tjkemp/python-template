@@ -13,7 +13,8 @@ exclude = '''
 /(
     \.git
   | \__*
-  | \.*
+  | \.*\_cache
+  | venv
   | build
   | dist
   | tmp
