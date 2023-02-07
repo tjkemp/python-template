@@ -20,11 +20,8 @@ do
 done
 
 
-echo -n Creating a  Python virtual environment \"venv\"...
-python -m venv venv ; { process_status; }
-
 echo -n Updating pip and its friends...
-venv/bin/pip install -q --upgrade pip setuptools wheel ; { process_status; }
+pip install -q --upgrade pip setuptools wheel ; { process_status; }
 
 if [ -x "$(command -v pip-compile)" ]; then
   echo -n Updating requirements.txt with pip-compile...
@@ -36,9 +33,6 @@ fi
 echo -n Installing dependencies...
 venv/bin/pip install -q -r requirements/requirements.txt ; { process_status; }
 
-echo -n Initializing git repository...
-git init ; { process_status; }
-
 if [ -x "$(command -v pre-commit)" ]; then
   echo -n Installing pre-commit hooks...
   pre-commit run --all-files ; { process_status; }
@@ -46,8 +40,4 @@ else
   echo INFO - Install \'pre-commit\' to have tests run automatically on commit
 fi
 
-echo
-echo Virtual environment created succesfully.
-echo
-echo Type \"source venv/bin/activate\" to activate the environment. See Makefile for a useful commands.
-echo Type \"code .\" to start coding.
+echo Everything is ready! Type \"code .\" to start coding.
