@@ -11,7 +11,7 @@
             "when": "$(basename).py"
         },
         "**/__pycache__": true,
-        "**/.*": true,
+        "/.*_cache": false,
         "venv": true,
         "*.egg-info": true,
         ".coverage": true
