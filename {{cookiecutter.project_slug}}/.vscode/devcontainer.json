@@ -1,0 +1,33 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+    "name": "Dev container",
+    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+    "image": "ubuntu:jammy",
+    // Features to add to the dev container. More info: https://containers.dev/features.
+    "features": {
+        "ghcr.io/devcontainers/features/python": {},
+        "ghcr.io/devcontainers-contrib/features/pipx-package": {},
+        "ghcr.io/dhoeric/features/act": {},
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Configure tool-specific properties.
+    // "customizations": {},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "charliermarsh.ruff",
+                "ms-vscode-remote.remote-containers"
+            ]
+        }
+    },
+    // Use 'postCreateCommand' to run commands after the container is created.
+    "postCreateCommand": "pip install --user -r {{ cookiecutter.project_slug }}/requirements/requirements.txt",
+    "remoteUser": "${localEnv:USER}",
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/home/${localEnv:USER}/.local/bin"
+    }
+}

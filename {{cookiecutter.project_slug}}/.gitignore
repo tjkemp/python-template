@@ -3,11 +3,7 @@
 .env
 
 # IDE generated
-.vscode/*
-!.vscode/settings-default.json
-!.vscode/tasks-default.json
-!.vscode/launch-default.json
-!.vscode/extensions-default.json
+./.vscode/*
 
 # Byte-compiled files
 __pycache__/
