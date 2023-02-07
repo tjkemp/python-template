@@ -19,6 +19,7 @@ do
   fi
 done
 
+read -n 1 -p "This will install Python packages into current environment. Press any key to continue or Ctrl-C to cancel."
 
 echo -n Updating pip and its friends...
 pip install -q --upgrade pip setuptools wheel ; { process_status; }
@@ -33,9 +34,12 @@ fi
 echo -n Installing dependencies...
 venv/bin/pip install -q -r requirements/requirements.txt ; { process_status; }
 
+echo -n Initializing git repository...
+git init ; { process_status; }
+
 if [ -x "$(command -v pre-commit)" ]; then
   echo -n Installing pre-commit hooks...
-  pre-commit run --all-files ; { process_status; }
+  pre-commit install ; { process_status; }
 else
   echo INFO - Install \'pre-commit\' to have tests run automatically on commit
 fi
