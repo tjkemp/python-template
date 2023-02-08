@@ -1,5 +1,4 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/python
+// For format details, see https://aka.ms/devcontainer.json
 {
     "name": "Dev container",
     "build": {
@@ -10,15 +9,11 @@
             "USER": "${localEnv:USER}"
         }
     },
-    "initializeCommand": "touch .env",
-    "runArgs": [
-        "--env-file",
-        "${localWorkspaceFolder}/.env"
-    ],
     // Features to add to the dev container. More info: https://containers.dev/features
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers-contrib/features/pipx-package:1": {},
+        "ghcr.io/devcontainers-contrib/features/pre-commit:2": {},
         "ghcr.io/guiyomh/features/just:0": {}
     },
     // "forwardPorts": [],
@@ -31,8 +26,12 @@
             ]
         }
     },
-    "postCreateCommand": "pip install --upgrade pip && pip install --user -r requirements/requirements.txt",
+    "postCreateCommand": [
+        "just",
+        "help"
+    ],
     "remoteUser": "${localEnv:USER}",
+    "updateRemoteUserUID": true,
     "remoteEnv": {
         "PATH": "${containerEnv:PATH}:/home/${localEnv:USER}/.local/bin"
     }
