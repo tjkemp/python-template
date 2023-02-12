@@ -69,11 +69,11 @@ jobs:
       - name: Install Just
         uses: extractions/setup-just@v1
 
-      - Name: Initialize tooling
+      - name: Initialize tooling
         run: |
           echo $PATH
           just init
 
-      - Name: Run tests
+      - name: Run tests
         run: |
           just test
