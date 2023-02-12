@@ -1,33 +1,34 @@
-# Yet Another Python Style Guide
+# Python Project Template
 
-This repository started as a personal and opinionated compilation of Python coding style recommendations. I realized that most of the style considerations can (and should) be automated away. But then, installing all the tooling can be quite a bit of work. And even then, the tooling is advancing fast enough to make a codebase difficult to work with after a break of year or two in development.
+This is my personal template for new Python projects. The template is installable with [cookiecutter](https://github.com/cookiecutter/cookiecutter) and it uses Visual Studio [devcontainer](https://code.visualstudio.com/docs/remote/containers) as a way to manage the environment.
 
-So after these revelations the project is (very) slowly turning into development environment for new Python projects.
+A little bit of background. The repository started as a compilation of Python coding style recommendations. With time Python tooling has been improving and I realized most of the style considerations can (and should) be automated away. But now, installing all this new tooling can be quite a bit of work, so this repository is turning into a template for new Python projects with everything set up the way I like it. I hope you find it useful as well. Note that I'll be updating it probably only every half a year or so.
 
-The repository can already be used as a [cookiecutter](https://github.com/cookiecutter/cookiecutter) template. Next step is to make it a Visual Studio [devcontainer](https://code.visualstudio.com/docs/remote/containers) environment.
+## Features
+ - **VS Code devcontainer** with Python 3.11, *black*, *ruff*, *pytest*, *pipx*, *pip-tools*, *pre-commit*, *just*, and *Pylance*.
 
-The style guide part is still [here](%7B%7Bcookiecutter.project_slug%7D%7D/STYLEGUIDE.md) to be included as a part of a new Python project.
+## How to Use the Template
 
-## Using the repository as a cookiecutter template
+Requirements:
+ - cookiecutter
+ - VS Code editor (not strictly required, but then you need to set up a Python environment and install all the tooling manually)
 
-### Requirements
- - Linux (tested on Ubuntu)
+To start a new Python project
 
-To have everything work smoothly and to be able to use `init-env.sh` to initialize a project, the following prerequisities should be met:
- - pipx (used for installing the dependencies below; recommended)
- - cookiecutter (installed with pipx; required)
- - pyenv (to install Python versions; recommended)
- - pip-tools (installed with pipx; recommended)
- - pre-commit (installed with pipx; recommended)
+1) **Run cookiecutter** with the url of this repository as an argument in the directory where you want to create the project directory, and
+2) **Start VS Code** in the project directory and open the project in the devcontainer.
 
-To create a new project directory, run cookiecutter with the url of the repo as a parameter.
+So for example, to create a new project called *My Python Project* with MIT license, run the following commands:
+
+## An example
 
 ```bash
-$ cookiecutter https://github.com/tjkemp/python-style-guide
+$ cookiecutter https://github.com/tjkemp/python-project-template
 
 username [username]: tjkemp
-project_name [My Python Project]: My cool project
-project_slug [my-python-project]: my-cool-project
+project_name [My Python Project]: My Python Project
+project_slug [my-python-project]: my-python-project
+python_version [3.11]: 3.11
 Select open_source_license:
 1 - MIT license
 2 - BSD license
@@ -36,25 +37,13 @@ Select open_source_license:
 Choose from 1, 2, 3, 4 [1]: 1
 ```
 
-This would create directory *my-cool-project* into the current directory with nice default configurations.
+This would create directory *my-python-project* into the current directory with nice default configurations.
 
-Next enter the project directory and run `init-env.sh` to initialize new Python environment and package management.
+Next enter the project directory and run `code .` to start VS Code. When VS Code starts, it will ask you if you want to open the project in a devcontainer. Select *Reopen in Container*.
 
 ```bash
-$ cd my-cool-project
-$ ./init-env.sh
-
-Creating a virtual environment "venv"...
-Updating pip and friends...
-Updating requirements.txt with pip-compile...
-Installing dependencies...
-Initializing git repository...
-Installing pre-commit hooks...
-
-Virtual environment created succesfully.
-
-Type "source venv/bin/activate" to activate the environment.
-Type "code ." to start coding.
+$ cd my-python-project
+$ code .
 ```
 
-Everything should be set up, now initialize a repo and start coding!
+Everything should be set up. Start coding!
