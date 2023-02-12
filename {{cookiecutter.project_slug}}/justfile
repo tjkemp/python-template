@@ -17,10 +17,12 @@ test:
 # Refresh requirements.txt
 _refresh-requirements-file:
   @pip install -q --upgrade pip setuptools wheel
+  @pip-compile -q requirements/requirements-dev.in
   @pip-compile -q requirements/requirements.in
 
 # Update Python dependencies
 update: _refresh-requirements-file
+  @pip install -r requirements/requirements-dev.txt
   @pip install -r requirements/requirements.txt
 
 # Run pre-commit hooks
