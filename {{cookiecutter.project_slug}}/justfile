@@ -1,0 +1,43 @@
+_default:
+  @just --summary
+
+# List of available commands
+help:
+  @echo Available commands:
+  @just --list --unsorted --list-heading ""
+  @echo "Type 'just' to get a full list of commands with descriptions."
+  @echo "Type 'just init' as your first command if you just started with a new project."
+
+# Run QA and then unit tests
+test:
+  @ruff check -q .
+  @black -q .
+  @pytest -q
+
+# Refresh requirements.txt
+_refresh-requirements-file:
+  @pip install -q --upgrade pip setuptools wheel
+  @pip-compile -q requirements/requirements-dev.in
+  @pip-compile -q requirements/requirements.in
+
+# Update Python dependencies
+update: _refresh-requirements-file
+  @pip install -r requirements/requirements-dev.txt
+  @pip install -r requirements/requirements.txt
+
+# Run pre-commit hooks
+hooks:
+  @pre-commit run --all-files
+
+_install-pythong-tooling:
+  @pipx install pip-tools
+  @pipx install pyclean
+
+# Init project
+init: _install-pythong-tooling update hooks
+  @echo "All done! Run 'just help' to see available commands."
+
+# Clean up
+clean:
+  @ruff clean
+  @pyclean .

@@ -1,0 +1,41 @@
+// For format details, see https://aka.ms/devcontainer.json
+{
+    "name": "Dev container",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "IMAGE": "python",
+            "TAG": "3.11-slim-bullseye",
+            "USER": "${localEnv:USER}",
+            "LOCALE": "fi_FI",
+            "TIMEZONE": "Europe/Helsinki"
+        }
+    },
+    // Features to add to the dev container. More info: https://containers.dev/features
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers-contrib/features/pipx-package:1": {},
+        "ghcr.io/devcontainers-contrib/features/pre-commit:2": {},
+        "ghcr.io/guiyomh/features/just:0": {}
+    },
+    // "forwardPorts": [],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-vscode-remote.remote-containers",
+                "charliermarsh.ruff",
+                "skellock.just"
+            ]
+        }
+    },
+    "postCreateCommand": [
+        "just",
+        "init"
+    ],
+    "remoteUser": "${localEnv:USER}",
+    "updateRemoteUserUID": true,
+    "remoteEnv": {
+        "PATH": "${containerEnv:PATH}:/home/${localEnv:USER}/.local/bin"
+    }
+}

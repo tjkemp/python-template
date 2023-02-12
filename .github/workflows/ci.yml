@@ -1,0 +1,79 @@
+name: CI
+on:
+  workflow_dispatch:
+  push:
+
+concurrency:
+  group: "default"
+  cancel-in-progress: true
+
+jobs:
+  run-cookiecutter:
+    name: "Create Project Template"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          path: src
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install Latest Cookiecutter
+        run: |
+          pip install cookiecutter
+
+      - name: Initialize Project from Template
+        run: |
+          cookiecutter --no-input src
+
+      - name: Store Initialized Project
+        uses: actions/upload-artifact@v3
+        with:
+          name: project-artifact
+          path: my-python-project
+          if-no-files-found: warn
+          retention-days: 1
+
+  test-template:
+    name: "Test the Project Template"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: my-python-project
+
+    steps:
+      - name: Download Project Directory
+        uses: actions/download-artifact@v2
+        with:
+          name: project-artifact
+          path: my-python-project
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install Python Dependencies
+        run: |
+          pip install pre-commit pipx pip-tools pyclean
+
+      - name: git
+        run: |
+          git init
+
+      - name: Install Just
+        uses: extractions/setup-just@v1
+
+      - Name: Initialize tooling
+        run: |
+          echo $PATH
+          just init
+
+      - Name: Run tests
+        run: |
+          just test
