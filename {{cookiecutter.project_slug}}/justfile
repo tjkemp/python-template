@@ -13,7 +13,6 @@ test:
   @ruff check -q .
   @black -q .
   @pytest -q
-  @echo All done!
 
 # Refresh requirements.txt
 _refresh-requirements-file:
@@ -23,12 +22,10 @@ _refresh-requirements-file:
 # Update Python dependencies
 update: _refresh-requirements-file
   @pip install -r requirements/requirements.txt
-  @echo All done!
 
 # Run pre-commit hooks
 hooks:
   @pre-commit run --all-files
-  @echo All done!
 
 _install-pythong-tooling:
   @pipx install pip-tools
@@ -36,10 +33,9 @@ _install-pythong-tooling:
 
 # Init project
 init: _install-pythong-tooling update hooks
-  @echo All done!
+  @echo "All done! Run 'just help' to see available commands."
 
 # Clean up
 clean:
   @ruff clean
   @pyclean .
-  @echo All done!

@@ -28,7 +28,7 @@
     },
     "postCreateCommand": [
         "just",
-        "help"
+        "init"
     ],
     "remoteUser": "${localEnv:USER}",
     "updateRemoteUserUID": true,
