@@ -41,6 +41,7 @@ jobs:
 
   test-template:
     name: "Test the Project Template"
+    needs: run-cookiecutter
     runs-on: ubuntu-latest
     defaults:
       run:
