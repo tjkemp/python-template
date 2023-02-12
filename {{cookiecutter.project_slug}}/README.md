@@ -8,7 +8,7 @@
 
 ## Prerequisites
 
-- Python 3.x
+- Python {{ cookiecutter.python_version }}
 
 ## Getting started
 
