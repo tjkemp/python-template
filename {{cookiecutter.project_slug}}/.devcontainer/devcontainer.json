@@ -6,7 +6,9 @@
         "args": {
             "IMAGE": "python",
             "TAG": "3.11-slim-bullseye",
-            "USER": "${localEnv:USER}"
+            "USER": "${localEnv:USER}",
+            "LOCALE": "fi_FI",
+            "TIMEZONE": "Europe/Helsinki"
         }
     },
     // Features to add to the dev container. More info: https://containers.dev/features
