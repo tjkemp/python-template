@@ -34,7 +34,7 @@ _install-pythong-tooling:
   @pipx install pyclean
 
 # Init project
-init: _install-pythong-tooling update hooks
+init: _install-python-tooling update hooks
   @echo "All done! Run 'just help' to see available commands."
 
 # Clean up
