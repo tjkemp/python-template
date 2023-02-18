@@ -2,11 +2,5 @@
   "username": "username",
   "project_name": "My Python Project",
   "project_slug": "my-python-project",
-  "python_version": "3.11",
-  "open_source_license": [
-    "MIT license",
-    "BSD license",
-    "GNU General Public License v3",
-    "Not open source"
-  ]
+  "python_version": "3.11"
 }

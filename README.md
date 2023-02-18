@@ -18,9 +18,11 @@ To start a new Python project
 1) **Run cookiecutter** with the url of this repository as an argument in the directory where you want to create the project directory, and
 2) **Start VS Code** in the project directory and open the project in the devcontainer.
 
-So for example, to create a new project called *My Python Project* with MIT license, run the following commands:
 
 ## An example
+
+To create a new project called *My Python Project* with MIT license, run the following commands:
+
 
 ```bash
 $ cookiecutter https://github.com/tjkemp/python-project-template
@@ -29,12 +31,6 @@ username [username]: tjkemp
 project_name [My Python Project]: My Python Project
 project_slug [my-python-project]: my-python-project
 python_version [3.11]: 3.11
-Select open_source_license:
-1 - MIT license
-2 - BSD license
-3 - GNU General Public License v3
-4 - Not open source
-Choose from 1, 2, 3, 4 [1]: 1
 ```
 
 This would create directory *my-python-project* into the current directory with nice default configurations.
