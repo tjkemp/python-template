@@ -29,7 +29,7 @@ update: _refresh-requirements-file
 hooks:
   @pre-commit run --all-files
 
-_install-pythong-tooling:
+_install-python-tooling:
   @pipx install pip-tools
   @pipx install pyclean
 
